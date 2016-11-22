@@ -1,0 +1,31 @@
+* [[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=17326][Bug #17326]] and [[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=21443][Bug #21443]]
+Open emacs with emacs -Q
+
+Do
+#+BEGIN_EXAMPLE
+  C-x C-f file1
+  M-: (visit-tags-table "fruits/TAGS" t)
+  C-h v tags-file-name
+#+END_EXAMPLE
+
+As expected, the buffer-local value of tags-file-name is the file we
+just chose and its global value is nil.
+
+#+BEGIN_EXAMPLE
+tags-file-name is a variable defined in ‘etags.el’.
+Its value is "/home/jschwab/Software/emacs-tags-issues/fruits/TAGS"
+Local in buffer file1; global value is nil
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+  M-. [TAB]
+  C-h v tags-file-name
+#+END_EXAMPLE
+
+Now, unexpectedly (as previously reported), the local and global
+values are the same.
+#+BEGIN_EXAMPLE
+tags-file-name is a variable defined in ‘etags.el’.
+Its value is "/home/jschwab/Software/emacs-tags-issues/fruits/TAGS"
+Local in buffer file1; global value is the same.
+#+END_EXAMPLE
