@@ -1,0 +1,45 @@
+* [[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=158][Bug #158]]
+Open emacs with emacs -Q
+
+Do
+#+BEGIN_EXAMPLE
+  C-x C-f file1
+  M-: (visit-tags-table "fruits/TAGS")
+  M-. [TAB]
+#+END_EXAMPLE
+
+The possible completions offered will be fruits, as expected.
+
+Continue by doing
+#+BEGIN_EXAMPLE
+  C-x C-f file2
+  M-: (visit-tags-table "vegetables/TAGS" t)
+#+END_EXAMPLE
+
+The user is prompted, "Keep current list of tags tables also? (y or n)".  Reply n.
+
+Now do
+#+BEGIN_EXAMPLE
+  M-. [TAB]
+#+END_EXAMPLE
+
+The possible completions offered will be fruits and not vegetables as expected.
+
+After this, the *Messages* buffer looks like
+#+BEGIN_EXAMPLE
+(New file)
+Starting a new list of tags tables
+"/home/jschwab/Software/emacs-tags-issues/fruits/TAGS"
+Making tags completion table for /home/jschwab/Software/emacs-tags-issues/fruits/TAGS...done
+Making completion list...
+Quit
+(New file)
+Keep current list of tags tables also? (y or n) n
+Starting a new list of tags tables
+"/home/jschwab/Software/emacs-tags-issues/vegetables/TAGS"
+Making tags completion table for /home/jschwab/Software/emacs-tags-issues/vegetables/TAGS...
+Making tags completion table for /home/jschwab/Software/emacs-tags-issues/fruits/TAGS...
+Making tags completion table for /home/jschwab/Software/emacs-tags-issues/vegetables/TAGS...done
+Making completion list...
+Quit
+#+END_EXAMPLE
