@@ -1,0 +1,64 @@
+* [[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=23164][Bug #23164]]
+Open emacs with emacs -Q
+
+Do
+#+BEGIN_EXAMPLE
+  C-x C-f file1
+  M-: (setq-local tags-file-name "fruits/TAGS")
+  M-: (xref-find-definitions "apple")
+#+END_EXAMPLE
+
+This fails, as described in the bug report.
+
+#+BEGIN_EXAMPLE
+Debugger entered--Lisp error: (wrong-type-argument stringp nil)
+  expand-file-name(nil)
+  tags-expand-table-name(nil)
+  visit-tags-table-buffer(t)
+  etags--xref-find-definitions("apple")
+  #[514 "\300!\207" [etags--xref-find-definitions] 4 "\n\n(fn BACKEND SYMBOL)"](etags "apple")
+  apply(#[514 "\300!\207" [etags--xref-find-definitions] 4 "\n\n(fn BACKEND SYMBOL)"] etags "apple")
+  xref-backend-definitions(etags "apple")
+  xref--find-xrefs("apple" definitions "apple" nil)
+  xref--find-definitions("apple" nil)
+  xref-find-definitions("apple")
+  eval((xref-find-definitions "apple") nil)
+  eval-expression((xref-find-definitions "apple") nil)
+  funcall-interactively(eval-expression (xref-find-definitions "apple") nil)
+  call-interactively(eval-expression nil nil)
+  command-execute(eval-expression)
+#+END_EXAMPLE
+
+The bug thread contains a suggested workaround.
+
+Open emacs with emacs -Q
+
+Do
+#+BEGIN_EXAMPLE
+  C-x C-f file1
+  M-: (visit-tags-table "fruits/TAGS" t)
+  M-: (xref-find-definitions "apple")
+#+END_EXAMPLE
+
+This also fails, as was indicated by the original reporter.
+
+#+BEGIN_EXAMPLE
+Debugger entered--Lisp error: (wrong-type-argument stringp nil)
+  expand-file-name(nil)
+  tags-expand-table-name(nil)
+  visit-tags-table-buffer(t)
+  etags--xref-find-definitions("apple")
+  #[514 "\300!\207" [etags--xref-find-definitions] 4 "\n\n(fn BACKEND SYMBOL)"](etags "apple")
+  apply(#[514 "\300!\207" [etags--xref-find-definitions] 4 "\n\n(fn BACKEND SYMBOL)"] etags "apple")
+  xref-backend-definitions(etags "apple")
+  xref--find-xrefs("apple" definitions "apple" nil)
+  xref--find-definitions("apple" nil)
+  xref-find-definitions("apple")
+  eval((xref-find-definitions "apple") nil)
+  eval-expression((xref-find-definitions "apple") nil)
+  funcall-interactively(eval-expression (xref-find-definitions "apple") nil)
+  call-interactively(eval-expression nil nil)
+  command-execute(eval-expression)
+#+END_EXAMPLE
+
+There's a patch in that thread, but its quality is uncertain.
