@@ -1,0 +1,3 @@
+asparagus = 4
+broccoli = 5
+cauliflower = 6
