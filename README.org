@@ -1,4 +1,8 @@
 * Local TAGS tables in emacs
+
+*UPDATE*: Eli Zaretskii has provided [[https://lists.gnu.org/archive/html/emacs-devel/2016-11/msg00560.html][a patch on the emacs-devel list]]
+that resolves these issues.  It will be included in emacs 26.
+
 I have been struggling on and off [[https://lists.gnu.org/archive/html/help-gnu-emacs/2013-02/msg00019.html][for years]] to use local TAGS tables.
 Here are recipes to reproduce some of the existing issues with local
 tags tables.  These were tested with the current release version of
