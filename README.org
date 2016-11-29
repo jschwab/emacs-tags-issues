@@ -6,5 +6,5 @@ that resolves these issues.  It will be included in emacs 26.
 I have been struggling on and off [[https://lists.gnu.org/archive/html/help-gnu-emacs/2013-02/msg00019.html][for years]] to use local TAGS tables.
 Here are recipes to reproduce some of the existing issues with local
 tags tables.  These were tested with the current release version of
-(emacs 25.1) and the development version (git
+emacs (25.1) and the development version (git
 c542fab20f53374dd0c71dce949ef370fc76fa48).
